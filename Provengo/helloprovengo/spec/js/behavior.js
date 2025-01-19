@@ -30,7 +30,7 @@ bthread('Student start to answer a quiz', function () {
 
 
 // This story logs in as an teacher, goes to a course, and hides the quiz from students.
-bthread('teacher hides a quiz', function () {
+bthread('Teacher hides a quiz', function () {
   let session_teacher = new SeleniumSession("teacher").start(URL);
 
   sync({Request: Event("Login"), session: session_teacher, TeacherData});
@@ -40,7 +40,7 @@ bthread('teacher hides a quiz', function () {
 
 
 // Sync the two stories: the student answering the quiz and only then the teacher can hide the quiz.
-bthread("AnswerQuizAndTheHide", function() {
+bthread("Student tries to answer quiz and then teacher hide the quiz", function() {
   sync({waitFor: Event("TryToAnswerQuiz")})
   sync({waitFor: Event("TryToAnswerQuiz Done"), block: Event("HideTheQuiz")})
   sync({waitFor: Event("HideTheQuiz")})

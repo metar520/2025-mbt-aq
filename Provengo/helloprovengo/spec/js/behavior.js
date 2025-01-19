@@ -29,11 +29,19 @@ bthread('Student start to answer a quiz', function () {
 });
 
 
-// This story logs in as an admin, goes to a course, and hides the quiz from students.
-bthread('Admin hides a quiz', function () {
-  let session_admin = new SeleniumSession("admin").start(URL);
+// This story logs in as an teacher, goes to a course, and hides the quiz from students.
+bthread('teacher hides a quiz', function () {
+  let session_teacher = new SeleniumSession("teacher").start(URL);
 
-  sync({Request: Event("Login"), session: session_admin, AdminData});
-  sync({Request: Event("GoToCourse"), session: session_admin});
-  sync({Request: Event("HideQuiz"), session: session_admin, quizTitle: "MyQuizTest"});
+  sync({Request: Event("Login"), session: session_teacher, TeacherData});
+  sync({Request: Event("GoToCourse"), session: session_teacher});
+  sync({Request: Event("HideQuiz"), session: session_teacher, quizTitle: "MyQuizTest"});
+});
+
+
+// Sync the two stories: the student answering the quiz and only then the teacher can hide the quiz.
+bthread("AnswerQuizAndTheHide", function() {
+  sync({waitFor: Event("TryToAnswerQuiz")})
+  sync({waitFor: Event("TryToAnswerQuiz Done"), block: Event("HideTheQuiz")})
+  sync({waitFor: Event("HideTheQuiz")})
 });

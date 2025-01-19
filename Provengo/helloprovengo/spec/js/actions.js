@@ -88,4 +88,3 @@ bthread("HideTheQuiz", function() {
     
   sync({request: Event("HideTheQuiz Done", {session: session_hideTheQuiz})});
 });
-

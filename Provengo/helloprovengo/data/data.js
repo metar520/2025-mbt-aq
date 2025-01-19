@@ -10,10 +10,10 @@ const StudentData = {
   password: "StudentPassword1!"
 }
 
-// Intialize Moudle admin data
-const AdminData = {
-  name: "Admin",
-  password: "AdminPassword1!"
+// Intialize Moudle teacher data
+const TeacherData = {
+  name: "Teacher",
+  password: "TeacherPassword1!"
 }
 
 const xpaths = {

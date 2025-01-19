@@ -5,13 +5,13 @@
 const URL = 'http://localhost/';
 
 // Intialize Moudle user data
-const studentData = {
+const StudentData = {
   name: "Student",
   password: "StudentPassword1!"
 }
 
 // Intialize Moudle admin data
-const adminData = {
+const AdminData = {
   name: "Admin",
   password: "AdminPassword1!"
 }

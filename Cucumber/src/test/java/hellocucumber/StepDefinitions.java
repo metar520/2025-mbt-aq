@@ -6,19 +6,29 @@ import org.junit.jupiter.api.Assertions.*;
 
 public class StepDefinitions {
 
-    // $$*TODO* explain what this step does$$
-    @Given("an example scenario")
-    public void anExampleScenario() {
-    }
+    private String webDriver = "webdriver.chrome.driver";
+    
+    // When opening the Moudle page
 
-    // $$*TODO* explain what this step does$$
-    @When("all step definitions are implemented")
-    public void allStepDefinitionsAreImplemented() {
-    }
+    // Student log in
 
-    // $$*TODO* explain what this step does$$
-    @Then("the scenario passes")
-    public void theScenarioPasses() {
-    }
+    // Student nevigate to the course page
 
+    // Student nevigate to the quiz page
+
+    // Student start answering the quiz
+
+    // Student submit the quiz
+
+    //---------------------------------------------------
+
+    // Teacher log in
+
+    // Teacher nevigate to the course page
+
+    // Teacher nevigate to edit mode in the course page
+
+    // Teacher nevigate to the quiz page
+
+    // Teacher hide the quiz
 }

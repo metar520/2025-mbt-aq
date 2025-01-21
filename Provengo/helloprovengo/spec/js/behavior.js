@@ -1,4 +1,4 @@
-// /* @provengo summon selenium */
+/* @provengo summon selenium */
 
 // /**
 //  * This story opens a new browser window, goes to google.com, and searches for "Pizza".
@@ -21,7 +21,8 @@
 
 // This story logs in as a student, goes to a course, and attempts a quiz.
 bthread('Student start to answer a quiz', function () {
-  let session_student = new SeleniumSession("student").start(URL);
+  let session_student = new SeleniumSession("student");
+  session_student.start(URL);
 
   sync({Request: Event("Login"), session: session_student, StudentData});
   sync({Request: Event("GoToCourse"), session: session_student});
@@ -31,7 +32,8 @@ bthread('Student start to answer a quiz', function () {
 
 // This story logs in as an teacher, goes to a course, and hides the quiz from students.
 bthread('Teacher hides a quiz', function () {
-  let session_teacher = new SeleniumSession("teacher").start(URL);
+  let session_teacher = new SeleniumSession("teacher");
+  session_teacher.start(URL);
 
   sync({Request: Event("Login"), session: session_teacher, TeacherData});
   sync({Request: Event("GoToCourse"), session: session_teacher});

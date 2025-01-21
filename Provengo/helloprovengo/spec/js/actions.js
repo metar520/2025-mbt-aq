@@ -15,9 +15,9 @@
 // }
 
 
-bthread("Login", function() {
+bthread("Login", function(session) {
   let event = sync({waitFor: any("Login")});
-  let session_login = event.data.session;
+  let session_login = session;
   let student = event.data.StudentData;
 
   session_login.click(xpaths.loginPage.loginLinkXpath);

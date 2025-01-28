@@ -45,12 +45,10 @@ bthread('Teacher hides a quiz', function () {
   enterPassword_teacher(session_teacher);
   submitLogin(session_teacher);
   goToCourse(session_teacher);
-
-  sync({waitFor: Event("QuizSubmitted")});
-
   editModeQuiz(session_teacher);
   hideQuiz(session_teacher);
 });
+
 
 
 // Sync the two stories: the student answering the quiz and only then the teacher can hide the quiz.

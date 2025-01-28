@@ -108,6 +108,7 @@ function submitQuiz(session) {
   sync({request: Event("QuizSubmitted"),
         request: Ctrl.markEvent("QuizSubmitted")
   });
+  session.close()
 }
 
 function editModeQuiz(session) {
@@ -130,4 +131,5 @@ function hideQuiz(session) {
   sync({request: Event("QuizHidden"),
         request: Ctrl.markEvent("QuizHidden")
   });
+  session.close()
 }

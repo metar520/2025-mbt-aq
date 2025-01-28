@@ -10,16 +10,16 @@
 // ];
 
 const GOALS = [
-    Event("QuizSubmitted"), 
-    Event("QuizHidden")
+    any(/QuizSubmitted/), 
+    any(/QuizHidden/)
 ];
 
-const makeGoals = function(){
-    return [
-        [ Ctrl.markEvent("QuizSubmitted") ],
-        [ Ctrl.markEvent("QuizHidden") ]
-    ];
-}
+// const makeGoals = function(){
+//     return [
+//         [ Ctrl.markEvent("QuizSubmitted") ],
+//         [ Ctrl.markEvent("QuizHidden") ]
+//     ];
+// }
 
 /**
  * Ranks test suites by how many events from the GOALS array were met.

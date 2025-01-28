@@ -4,18 +4,6 @@
 
 const URL = 'http://localhost/';
 
-// Intialize Moudle user data
-const StudentData = {
-  name: "Student",
-  password: "StudentPassword1!"
-}
-
-// Intialize Moudle teacher data
-const TeacherData = {
-  name: "Teacher",
-  password: "TeacherPassword1!"
-}
-
 const xpaths = {
   searchWindow: {
     searchInput: '//textarea[@aria-label="Search"]',
@@ -26,7 +14,7 @@ const xpaths = {
     // Login Page
     loginPage: {
       // loginLink -> usernameInput -> passwordInput -> submitButton
-        loginLinkXpath: '//*[@id="usernavigation"]/div/div/span/a',
+        //loginLinkXpath: '//*[@id="usernavigation"]/div/div/span/a',
         usernameInputXpath: '//*[@id="username"]',
         passwordInputXpath: '//*[@id="password"]',
         submitButtonXpath: "//button[@id='loginbtn']",

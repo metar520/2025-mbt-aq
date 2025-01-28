@@ -20,13 +20,18 @@
 
 
 // This story logs in as a student, goes to a course, and attempts a quiz.
-bthread('Student start to answer a quiz', function () {
+bthread('Student answer a quiz', function () {
   let session_student = new SeleniumSession("student");
   session_student.start(URL);
-
-  sync({Request: Event("Login"), session: session_student, StudentData});
-  sync({Request: Event("GoToCourse"), session: session_student});
-  sync({Request: Event("TryToAnswerQuiz"), session: session_student, quizTitle: "MyQuizTest"});
+  
+  pressLogin(session_student);
+  enterUsername_student(session_student);
+  enterPassword_student(session_student);
+  submitLogin(session_student);
+  goToCourse(session_student);
+  openQuiz(session_student);
+  answerQuiz(session_student);
+  submitQuiz(session_student);
 });
 
 
@@ -34,16 +39,42 @@ bthread('Student start to answer a quiz', function () {
 bthread('Teacher hides a quiz', function () {
   let session_teacher = new SeleniumSession("teacher");
   session_teacher.start(URL);
+  
+  pressLogin(session_teacher);
+  enterUsername_teacher(session_teacher);
+  enterPassword_teacher(session_teacher);
+  submitLogin(session_teacher);
+  goToCourse(session_teacher);
 
-  sync({Request: Event("Login"), session: session_teacher, TeacherData});
-  sync({Request: Event("GoToCourse"), session: session_teacher});
-  sync({Request: Event("HideQuiz"), session: session_teacher, quizTitle: "MyQuizTest"});
+  sync({waitFor: Event("QuizSubmitted")});
+
+  editModeQuiz(session_teacher);
+  hideQuiz(session_teacher);
 });
 
 
 // Sync the two stories: the student answering the quiz and only then the teacher can hide the quiz.
-bthread("Student tries to answer quiz and then teacher hide the quiz", function() {
-  sync({waitFor: Event("TryToAnswerQuiz")})
-  sync({waitFor: Event("TryToAnswerQuiz Done"), block: Event("HideTheQuiz")})
-  sync({waitFor: Event("HideTheQuiz")})
-});
+// bthread("Student tries to answer quiz and then teacher hide the quiz", function() {
+//   let session_student = new SeleniumSession("student");
+//   let session_teacher = new SeleniumSession("teacher");
+  
+//   session_student.start(URL);
+//   session_teacher.start(URL);
+  
+//   pressLogin(session_student);
+//   enterUsername_student(session_student);
+//   enterPassword_student(session_student);
+//   submitLogin(session_student);
+  
+//   pressLogin(session_teacher);
+//   enterUsername_teacher(session_teacher);
+//   enterPassword_teacher(session_teacher);
+//   submitLogin(session_teacher);
+  
+//   goToCourse(session_student);
+//   openQuiz(session_student);
+//   answerQuiz(session_student);
+  
+//   editModeQuiz(session_teacher);
+//   hideQuiz(session_teacher);
+// });

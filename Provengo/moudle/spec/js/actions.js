@@ -1,4 +1,6 @@
-// function composeQuery(session, data) {
+//@provengo summon ctrl
+// 
+// // function composeQuery(session, data) {
 //   session.writeText(xpaths.searchWindow.searchInput, data.text)
 // }
 
@@ -15,76 +17,117 @@
 // }
 
 
-bthread("Login", function(session) {
-  let event = sync({waitFor: any("Login")});
-  let session_login = session;
-  let student = event.data.StudentData;
+function pressLogin(session) {
+  sync({request: Event("PressLogin")});
 
-  session_login.click(xpaths.loginPage.loginLinkXpath);
+  with(session) {
+    click('//*[@id="usernavigation"]/div/div/span/a')
+  }
+}
 
-  let userName_userText = xpaths.loginPage.usernameInputXpath;
-  let password_userText = xpaths.loginPage.passwordInputXpath;
+function enterUsername_student(session) {
+  with(session) {
+    clear(xpaths.loginPage.usernameInputXpath)
+    writeText(xpaths.loginPage.usernameInputXpath, "Student")
+  }
+}
 
-  session_login.clear(userName_userText);
-  session_login.writeText(userName_userText, student.UserName);
+function enterPassword_student(session) {
+  with(session) {
+    clear(xpaths.loginPage.passwordInputXpath)
+    writeText(xpaths.loginPage.passwordInputXpath, "StudentPassword1!")
+  }
+}
 
-  session_login.clear(password_userText);
-  session_login.writeText(password_userText, student.Password);
+function enterUsername_teacher(session) {
+  with(session) {
+    clear(xpaths.loginPage.usernameInputXpath)
+    writeText(xpaths.loginPage.usernameInputXpath, "Teacher")
+  }
+}
 
-  session_login.click(xpaths.loginPage.submitButtonXpath);
+function enterPassword_teacher(session) {
+  with(session) {
+    clear(xpaths.loginPage.passwordInputXpath)
+    writeText(xpaths.loginPage.passwordInputXpath, "TeacherPassword1!")
+  }
+}
 
-  sync({request: Event("Login Done", {session: session_login})});
-});
-
-
-bthread("GoToCourse", function() {
-  let event = sync({waitFor: any("GoToCourse")});
-  let session_goToCourse = event.data.session;
-
-  session_goToCourse.waitForVisibility(xpaths.coursePage.myCoursesLinkXpath);
-
-  session_goToCourse.click(xpaths.coursePage.myCoursesLinkXpath);
-  session_goToCourse.click(xpaths.coursePage.courseLinkXpath);
-
-  sync({request: Event("GoToCourse Done", {session: session_goToCourse})});
-});
-
-
-bthread("TryToAnswerQuiz", function() {
-  let event = sync({waitFor: any("TryToAnswerQuiz")});
-  let session_tryToAnswerQuiz = event.data.session;
-
-  // Select the quiz
-  let quizFath = xpaths.coursePage.quizLink.replace('${quizName}', data.quizTitle);
-  session_tryToAnswerQuiz.click(quizFath);
+function submitLogin(session) {
+  with(session) {
+    click(xpaths.loginPage.submitButtonXpath)
+  }
   
-  // Answer the quiz
-  session_tryToAnswerQuiz.click(xpaths.quizPage.quizPreviewLinkXpath);
-  session_tryToAnswerQuiz.clear(xpaths.quizPage.quizAnswerXpath);
-  session_tryToAnswerQuiz.writeText(xpaths.quizPage.quizAnswerXpath, data['some answer']);
+  sync({request: Event("SubmitLogin"),
+        request: Ctrl.markEvent("SubmitLogin")
+  });
+}
 
-  // Submit the quiz
-  session_tryToAnswerQuiz.click(xpaths.quizPage.quizSubmitButtonXpath);
+function goToCourse(session) {
+  sync({waitFor: Event("SubmitLogin"),
+        request: Event("GoToCourse")
+  });
+
+  with(session) {
+    click(xpaths.coursePage.myCoursesLinkXpath)
+    click(xpaths.coursePage.courseLinkXpath)
+  }
   
-  sync({request: Event("TryToAnswerQuiz Done", {session: session_tryToAnswerQuiz})});
+  sync({request: Event("InCourse"),
+    request: Ctrl.markEvent("InCourse")
+});
+}
+
+function openQuiz(session) {
+  sync({waitFor: Event("InCourse"),
+        request: Event("TryOpenQuiz")
 });
 
+  with(session) {
+    click(xpaths.coursePage.quizLinkXpath)
+  }
 
-bthread("HideTheQuiz", function() {
-  let event = sync({waitFor: any("HideTheQuiz")});
-  let session_hideTheQuiz = event.data.session;
+  sync({request: Event("OpenedQuiz"),
+        request: Ctrl.markEvent("OpenedQuiz")
+  });
+}
 
-  // Select edit mode
-  session_hideTheQuiz.waitForVisibility(xpaths.coursePage.editModeXpath);
-  session_hideTheQuiz.click(xpaths.coursePage.editModeXpath);
+function answerQuiz(session) {
+  with(session) {
+    click(xpaths.quizPage.quizPreviewLinkXpath)
+    clear(xpaths.quizPage.quizAnswerXpath)
+    writeText(xpaths.quizPage.quizAnswerXpath, "some answer")
+  }
+}
+
+function submitQuiz(session) {
+  with(session) {
+    click(xpaths.quizPage.quizSubmitButtonXpath)
+  }
   
-  // Hide the quiz
-  session_hideTheQuiz.waitForVisibility(xpaths.coursePage.threePointsXpathXpath);
-  session_hideTheQuiz.click(xpaths.coursePage.threePoints);
-  session_hideTheQuiz.click(xpaths.coursePage.availibilityOptionXpath);
-  session_hideTheQuiz.waitForVisibility(xpaths.coursePage.hideOptionXpath);
-  session_hideTheQuiz.click(xpaths.coursePage.hideOptionXpath);
-  session_hideTheQuiz.close()
-    
-  sync({request: Event("HideTheQuiz Done", {session: session_hideTheQuiz})});
-});
+  sync({request: Event("QuizSubmitted"),
+        request: Ctrl.markEvent("QuizSubmitted")
+  });
+}
+
+function editModeQuiz(session) {
+  sync({waitFor: Event("OpenedQuiz"),
+        request: Event("EditModeQuiz")
+  });
+
+  with(session) {
+    click(xpaths.coursePage.editModeXpath)
+  }
+}
+
+function hideQuiz(session) {
+  with(session) {
+    click(xpaths.coursePage.threePointsXpath)
+    click(xpaths.coursePage.availibilityOptionXpath)
+    click(xpaths.coursePage.hideOptionXpath)
+  }
+  
+  sync({request: Event("QuizHidden"),
+        request: Ctrl.markEvent("QuizHidden")
+  });
+}

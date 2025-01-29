@@ -28,7 +28,7 @@ function pressLogin(session) {
 
 function enterUsername_student(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     clear(xpaths.loginPage.usernameInputXpath)
     writeText(xpaths.loginPage.usernameInputXpath, "student")
   }
@@ -36,7 +36,7 @@ function enterUsername_student(session) {
 
 function enterPassword_student(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     clear(xpaths.loginPage.passwordInputXpath)
     writeText(xpaths.loginPage.passwordInputXpath, "Sandbox24!")
   }
@@ -52,7 +52,7 @@ function enterUsername_teacher(session) {
 
 function enterPassword_teacher(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     clear(xpaths.loginPage.passwordInputXpath)
     writeText(xpaths.loginPage.passwordInputXpath, "Sandbox24!")
   }
@@ -91,7 +91,7 @@ function openQuiz(session) {
 });
 
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     click(xpaths.coursePage.quizLinkXpath)
   }
 
@@ -102,7 +102,7 @@ function openQuiz(session) {
 
 function answerQuiz(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     click(xpaths.quizPage.quizPreviewLinkXpath)
     click(xpaths.quizPage.quizAnswerXpath)
   }
@@ -110,17 +110,17 @@ function answerQuiz(session) {
 
 function submitQuiz(session) {
   with(session) {
-    Ctrl.doSleep(1000)
-    click(xpaths.quizPage.quizSubmitButtonXpath)
+    Ctrl.doSleep(2000)
+    click(xpaths.quizPage.quizFinishAttempButtonXpath)
     click(xpaths.quizPage.quizSubmitAllAndFinishButtonXpath)
-    click(xpaths.quizPage.confirmationMessageXpath)
-    click(xpaths.quizPage.confirmationFinishXpath)    
+    click(xpaths.quizPage.quizSubmitAndFinishPopUpXpath)
+    click(xpaths.quizPage.FinishReviewXpath)    
   }
 }
 
 function editModeQuiz(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     click(xpaths.coursePage.editModeXpath)
   }
 
@@ -131,10 +131,13 @@ function editModeQuiz(session) {
 
 function hideQuiz(session) {
   with(session) {
-    Ctrl.doSleep(1000)
+    Ctrl.doSleep(2000)
     click(xpaths.coursePage.threePointsXpath)
+    Ctrl.doSleep(1000)
     click(xpaths.coursePage.availibilityOptionXpath)
+    Ctrl.doSleep(1000)
     click(xpaths.coursePage.hideOptionXpath)
+    Ctrl.doSleep(5000)
   }
   
   sync({request: Event("QuizHidden"),

@@ -45,8 +45,7 @@ const xpaths = {
           "//label[contains(text(), 'True')]",
         quizFinishAttempButtonXpath: '//*[@id="mod_quiz-next-nav"]',
         quizSubmitAllAndFinishButtonXpath: "//button[contains(., 'Submit all and finish')]",
-        quizSubmitAndFinishPopUpXpath:
-            "/html/body/div[5]/div[2]/div/div/div[3]/button[2]",
+        quizSubmitAndFinishPopUpXpath:"/html/body/div[4]/div[2]/div/div/div[3]/button[2]",
         FinishReviewXpath:"/html/body/div[2]/div[5]/div/div[2]/div/section/div[2]/div[2]/a"
     }
 }

@@ -21,40 +21,46 @@ function pressLogin(session) {
   sync({request: Event("PressLogin")});
 
   with(session) {
+    Ctrl.doSleep(1000)
     click('//*[@id="usernavigation"]/div/div/span/a')
   }
 }
 
 function enterUsername_student(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     clear(xpaths.loginPage.usernameInputXpath)
-    writeText(xpaths.loginPage.usernameInputXpath, "Student")
+    writeText(xpaths.loginPage.usernameInputXpath, "student")
   }
 }
 
 function enterPassword_student(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     clear(xpaths.loginPage.passwordInputXpath)
-    writeText(xpaths.loginPage.passwordInputXpath, "StudentPassword1!")
+    writeText(xpaths.loginPage.passwordInputXpath, "Sandbox24!")
   }
 }
 
 function enterUsername_teacher(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     clear(xpaths.loginPage.usernameInputXpath)
-    writeText(xpaths.loginPage.usernameInputXpath, "Teacher")
+    writeText(xpaths.loginPage.usernameInputXpath, "teacher")
   }
 }
 
 function enterPassword_teacher(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     clear(xpaths.loginPage.passwordInputXpath)
-    writeText(xpaths.loginPage.passwordInputXpath, "TeacherPassword1!")
+    writeText(xpaths.loginPage.passwordInputXpath, "Sandbox24!")
   }
 }
 
 function submitLogin(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.loginPage.submitButtonXpath)
   }
   
@@ -69,6 +75,7 @@ function goToCourse(session) {
   });
 
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.coursePage.myCoursesLinkXpath)
     click(xpaths.coursePage.courseLinkXpath)
   }
@@ -84,6 +91,7 @@ function openQuiz(session) {
 });
 
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.coursePage.quizLinkXpath)
   }
 
@@ -94,34 +102,36 @@ function openQuiz(session) {
 
 function answerQuiz(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.quizPage.quizPreviewLinkXpath)
-    clear(xpaths.quizPage.quizAnswerXpath)
-    writeText(xpaths.quizPage.quizAnswerXpath, "some answer")
+    click(xpaths.quizPage.quizAnswerXpath)
   }
 }
 
 function submitQuiz(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.quizPage.quizSubmitButtonXpath)
+    click(xpaths.quizPage.quizSubmitAllAndFinishButtonXpath)
+    click(xpaths.quizPage.confirmationMessageXpath)
+    click(xpaths.quizPage.confirmationFinishXpath)    
   }
-  
-  sync({request: Event("QuizSubmitted"),
-        request: Ctrl.markEvent("QuizSubmitted")
-  });
 }
 
 function editModeQuiz(session) {
+  with(session) {
+    Ctrl.doSleep(1000)
+    click(xpaths.coursePage.editModeXpath)
+  }
+
   sync({waitFor: Event("OpenedQuiz"),
         request: Event("EditModeQuiz")
   });
-
-  with(session) {
-    click(xpaths.coursePage.editModeXpath)
-  }
 }
 
 function hideQuiz(session) {
   with(session) {
+    Ctrl.doSleep(1000)
     click(xpaths.coursePage.threePointsXpath)
     click(xpaths.coursePage.availibilityOptionXpath)
     click(xpaths.coursePage.hideOptionXpath)

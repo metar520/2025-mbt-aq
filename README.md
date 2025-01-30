@@ -8,6 +8,13 @@ $$*TODO* Add some general description about the software$$
 
 ## Installation
 $$*TODO* Write instructions on how to install the software and prepare the testing environment$$
+	1.	Download XAMPP from https://www.apachefriends.org/
+	2.	Install XAMPP and start:
+	•	Apache (for the web server)
+	•	MySQL (for the database)
+	3.	Extract the downloaded Moodle folder to C:\xampp\htdocs\moodle
+	4.	Open your web browser and go to: http://localhost/moodle
+   5.	Follow the Moodle installation wizard.
 
 ## What we tested
 $$*TODO* Add a description of the module and the user stories that you chose to test.
